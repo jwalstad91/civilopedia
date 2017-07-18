@@ -6,25 +6,25 @@ namespace civilopedia.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<civilopedia.Models.civilopediaContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<civilopediaContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(civilopedia.Models.civilopediaContext context)
+        protected override void Seed(civilopediaContext context)
         {
-            context.Civilizations.AddOrUpdate(x => x.Id,
-                new Civilization() { Id = 1, Name = "America" },
-                new Civilization() { Id = 2, Name = "Egypt" },
-                new Civilization() { Id = 3, Name = "Japan" }
+            context.Civilizations.AddOrUpdate(x => x.CivId,
+                new Civilization() { CivId = 1, CivName = "America" },
+                new Civilization() { CivId = 2, CivName = "Egypt" },
+                new Civilization() { CivId = 3, CivName = "Japan" }
                 );
 
-            context.Leaders.AddOrUpdate(x => x.Id,
-                new Leader() { Id = 1, Name = "Theodore Roosevelt", CivilizationId = 1 },
-                new Leader() { Id = 2, Name = "Cleopatra", CivilizationId = 2 },
-                new Leader() { Id = 3, Name = "Hojo Tokimune", CivilizationId = 3 }
+            context.Leaders.AddOrUpdate(x => x.LeaderId,
+                new Leader() { LeaderId = 1, LeaderName = "Theodore Roosevelt", CivId = 1 },
+                new Leader() { LeaderId = 2, LeaderName = "Cleopatra", CivId = 2 },
+                new Leader() { LeaderId = 3, LeaderName = "Hojo Tokimune", CivId = 3 }
                 );
 
             //  This method will be called after migrating to the latest version.

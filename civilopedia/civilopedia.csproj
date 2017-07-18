@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201707161754180_Initial.Designer.cs">
       <DependentUpon>201707161754180_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707181652058_ExpandedModels.cs" />
+    <Compile Include="Migrations\201707181652058_ExpandedModels.Designer.cs">
+      <DependentUpon>201707181652058_ExpandedModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\Civilization.cs" />
@@ -273,6 +277,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707161754180_Initial.resx">
       <DependentUpon>201707161754180_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707181652058_ExpandedModels.resx">
+      <DependentUpon>201707181652058_ExpandedModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

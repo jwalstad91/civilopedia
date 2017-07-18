@@ -19,8 +19,14 @@ namespace civilopedia.Models
         {
         }
 
-        public System.Data.Entity.DbSet<civilopedia.Models.Civilization> Civilizations { get; set; }
+        public DbSet<Civilization> Civilizations { get; set; }
 
-        public System.Data.Entity.DbSet<civilopedia.Models.Leader> Leaders { get; set; }
+        public DbSet<Leader> Leaders { get; set; }
+
+        public DbSet<Unit> Units { get; set; }
+
+        public DbSet<District> Districts { get; set; }
+
+        public DbSet<Building> Buildings { get; set; }
     }
 }
