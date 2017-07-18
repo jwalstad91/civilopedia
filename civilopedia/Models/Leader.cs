@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace civilopedia.Models
 {
     public class Leader
     {
-        public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public int LeaderId { get; set; } // Primary Key
 
-        // Foreign Key
-        public int CivilizationId { get; set; }
-        // Navigation property
+        [Required]
+        public string LeaderName { get; set; }
+
+        public string LeaderAbility { get; set; }
+
+        public string LeaderAgenda { get; set; }
+
+        public int CivId { get; set; } // Foreign Key
+
         public Civilization civilization { get; set; }
     }
 }

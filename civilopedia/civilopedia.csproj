@@ -192,9 +192,12 @@
       <DependentUpon>201707161754180_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Building.cs" />
     <Compile Include="Models\Civilization.cs" />
     <Compile Include="Models\civilopediaContext.cs" />
+    <Compile Include="Models\District.cs" />
     <Compile Include="Models\Leader.cs" />
+    <Compile Include="Models\Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

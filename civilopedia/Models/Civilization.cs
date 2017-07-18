@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace civilopedia.Models
 {
     public class Civilization
     {
-        public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public int CivId { get; set; } // Primary Key
 
-        // Foreign Keys
-        public List<int> LeaderIds { get; set; }
+        [Required]
+        public string CivName { get; set; }
     }
 }
