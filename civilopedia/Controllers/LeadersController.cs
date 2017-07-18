@@ -45,7 +45,7 @@ namespace civilopedia.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != leader.Id)
+            if (id != leader.LeaderId)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace civilopedia.Controllers
             db.Leaders.Add(leader);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = leader.Id }, leader);
+            return CreatedAtRoute("DefaultApi", new { id = leader.LeaderId }, leader);
         }
 
         // DELETE: api/Leaders/5
@@ -113,7 +113,7 @@ namespace civilopedia.Controllers
 
         private bool LeaderExists(int id)
         {
-            return db.Leaders.Count(e => e.Id == id) > 0;
+            return db.Leaders.Count(e => e.LeaderId == id) > 0;
         }
     }
 }

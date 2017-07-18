@@ -45,7 +45,7 @@ namespace civilopedia.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != civilization.Id)
+            if (id != civilization.CivId)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace civilopedia.Controllers
             db.Civilizations.Add(civilization);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = civilization.Id }, civilization);
+            return CreatedAtRoute("DefaultApi", new { id = civilization.CivId }, civilization);
         }
 
         // DELETE: api/Civilizations/5
@@ -113,7 +113,7 @@ namespace civilopedia.Controllers
 
         private bool CivilizationExists(int id)
         {
-            return db.Civilizations.Count(e => e.Id == id) > 0;
+            return db.Civilizations.Count(e => e.CivId == id) > 0;
         }
     }
 }
