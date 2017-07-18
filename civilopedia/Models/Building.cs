@@ -4,7 +4,7 @@ namespace civilopedia.Models
 {
     public class Building
     {
-        [Required]
+        [Key]
         public int BuildingId { get; set; } // Primary Key
 
         [Required]

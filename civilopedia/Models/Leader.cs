@@ -4,7 +4,7 @@ namespace civilopedia.Models
 {
     public class Leader
     {
-        [Required]
+        [Key]
         public int LeaderId { get; set; } // Primary Key
 
         [Required]

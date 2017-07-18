@@ -4,7 +4,7 @@ namespace civilopedia.Models
 {
     public class District
     {
-        [Required]
+        [Key]
         public int DistrictId { get; set; } // Primary Key
 
         [Required]

@@ -7,7 +7,7 @@ namespace civilopedia.Models
 {
     public class Unit
     {
-        [Required]
+        [Key]
         public int UnitId { get; set; } // Primary Key
 
         [Required]

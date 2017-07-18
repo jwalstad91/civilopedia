@@ -4,7 +4,7 @@ namespace civilopedia.Models
 {
     public class Civilization
     {
-        [Required]
+        [Key]
         public int CivId { get; set; } // Primary Key
 
         [Required]
