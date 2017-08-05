@@ -14,8 +14,6 @@ namespace civilopedia.Models
 
         public string LeaderAgenda { get; set; }
 
-        public int CivId { get; set; } // Foreign Key
-
-        public Civilization civilization { get; set; }
+        public int? CivId { get; set; } // Foreign Key
     }
 }

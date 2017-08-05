@@ -16,6 +16,6 @@ namespace civilopedia.Models
 
         public bool IsUnique { get; set; }
 
-        public int CivId { get; set; } // Foreign Key
+        public int? CivId { get; set; } // Foreign Key
     }
 }
