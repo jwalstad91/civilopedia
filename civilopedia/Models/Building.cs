@@ -5,10 +5,10 @@ namespace civilopedia.Models
     public class Building
     {
         [Key]
-        public int BuildingId { get; set; } // Primary Key
+        public int Id { get; set; } // Primary Key
 
         [Required]
-        public string BuildingName { get; set; }
+        public string Name { get; set; }
 
         public int ProductionCost { get; set; }
 

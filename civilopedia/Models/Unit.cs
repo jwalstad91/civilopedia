@@ -8,10 +8,10 @@ namespace civilopedia.Models
     public class Unit
     {
         [Key]
-        public int UnitId { get; set; } // Primary Key
+        public int Id { get; set; } // Primary Key
 
         [Required]
-        public string UnitName { get; set; }
+        public string Name { get; set; }
 
         public bool IsUnique { get; set; }
 

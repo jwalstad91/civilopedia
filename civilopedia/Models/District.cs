@@ -5,10 +5,10 @@ namespace civilopedia.Models
     public class District
     {
         [Key]
-        public int DistrictId { get; set; } // Primary Key
+        public int Id { get; set; } // Primary Key
 
         [Required]
-        public string DistrictName { get; set; }
+        public string Name { get; set; }
 
         public int ProductionCost { get; set; }
 

@@ -4,15 +4,13 @@ namespace civilopedia.Models
 {
     public class Leader
     {
-        [Key]
-        public int LeaderId { get; set; } // Primary Key
+        public int Id { get; set; } // Primary Key
 
-        [Required]
-        public string LeaderName { get; set; }
+        public string Name { get; set; }
 
-        public string LeaderAbility { get; set; }
+        public string Ability { get; set; }
 
-        public string LeaderAgenda { get; set; }
+        public string Agenda { get; set; }
 
         public int? CivId { get; set; } // Foreign Key
     }
