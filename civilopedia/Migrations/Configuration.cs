@@ -15,30 +15,33 @@ namespace civilopedia.Migrations
 
         protected override void Seed(civilopediaContext context)
         {
-            context.Civilizations.AddOrUpdate(x => x.CivId,
-                new Civilization() { CivId = 1, CivName = "America" },
-                new Civilization() { CivId = 2, CivName = "Egypt" },
-                new Civilization() { CivId = 3, CivName = "Japan" }
+            context.Civilizations.AddOrUpdate(c => c.Id,
+                new Civilization() { Id = 1, Name = "America" },
+                new Civilization() { Id = 2, Name = "Egypt" },
+                new Civilization() { Id = 3, Name = "Japan" }
                 );
 
-            context.Leaders.AddOrUpdate(x => x.LeaderId,
-                new Leader() { LeaderId = 1, LeaderName = "Theodore Roosevelt", CivId = 1 },
-                new Leader() { LeaderId = 2, LeaderName = "Cleopatra", CivId = 2 },
-                new Leader() { LeaderId = 3, LeaderName = "Hojo Tokimune", CivId = 3 }
+            context.Leaders.AddOrUpdate(l => l.Id,
+                new Leader() { Id = 1, Name = "Theodore Roosevelt", CivId = 1 },
+                new Leader() { Id = 2, Name = "Cleopatra", CivId = 2 },
+                new Leader() { Id = 3, Name = "Hojo Tokimune", CivId = 3 }
                 );
 
-            //  This method will be called after migrating to the latest version.
+            context.Buildings.AddOrUpdate(b => b.Id,
+                new Building() { Id = 1, Name = "Monument" },
+                new Building() {  Id = 2, Name = "Granary" }
+                );
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Districts.AddOrUpdate(d => d.Id,
+                new District() { Id = 1, Name = "Holy Site" },
+                new District() { Id = 2, Name = "Campus" }
+                );
+
+            context.Units.AddOrUpdate(
+                new Unit() { Id = 1, Name = "Scout" },
+                new Unit() { Id = 2, Name = "Settler" },
+                new Unit() { Id = 3, Name = "Warrior" }
+                );
         }
     }
 }
