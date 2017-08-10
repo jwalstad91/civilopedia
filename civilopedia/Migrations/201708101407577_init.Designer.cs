@@ -7,13 +7,13 @@ namespace civilopedia.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class PKUpdates : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PKUpdates));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708052006390_PKUpdates"; }
+            get { return "201708101407577_init"; }
         }
         
         string IMigrationMetadata.Source

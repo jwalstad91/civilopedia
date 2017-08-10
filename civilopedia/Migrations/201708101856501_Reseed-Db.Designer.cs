@@ -7,13 +7,13 @@ namespace civilopedia.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class ReseedDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ReseedDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707161754180_Initial"; }
+            get { return "201708101856501_Reseed-Db"; }
         }
         
         string IMigrationMetadata.Source
