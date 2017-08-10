@@ -13,44 +13,47 @@ using civilopedia.Models;
 
 namespace civilopedia.Controllers
 {
-    public class LeadersController : ApiController
+    public class BuildingsController : ApiController
     {
         private civilopediaContext db = new civilopediaContext();
 
-        // GET: civ6/Leaders/AllLeaders
-        public IQueryable<Leader> AllLeaders()
+        // GET: api/Buildings
+        public IQueryable<Building> AllBuildings()
         {
-            return db.Leaders;
+            var result = from b in db.Buildings
+                         select b;
+
+            return result;
         }
 
-        // GET: api/Leaders/5
-        [ResponseType(typeof(Leader))]
-        public async Task<IHttpActionResult> GetLeader(int id)
+        // GET: api/Buildings/5
+        [ResponseType(typeof(Building))]
+        public async Task<IHttpActionResult> GetBuilding(int? id)
         {
-            Leader leader = await db.Leaders.FindAsync(id);
-            if (leader == null)
+            Building building = await db.Buildings.FindAsync(id);
+            if (building == null)
             {
                 return NotFound();
             }
 
-            return Ok(leader);
+            return Ok(building);
         }
 
-        // PUT: api/Leaders/5
+        // PUT: api/Buildings/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutLeader(int id, Leader leader)
+        public async Task<IHttpActionResult> PutBuilding(int id, Building building)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != leader.Id)
+            if (id != building.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(leader).State = EntityState.Modified;
+            db.Entry(building).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +61,7 @@ namespace civilopedia.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LeaderExists(id))
+                if (!BuildingExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +74,35 @@ namespace civilopedia.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Leaders
-        [ResponseType(typeof(Leader))]
-        public async Task<IHttpActionResult> PostLeader(Leader leader)
+        // POST: api/Buildings
+        [ResponseType(typeof(Building))]
+        public async Task<IHttpActionResult> PostBuilding(Building building)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Leaders.Add(leader);
+            db.Buildings.Add(building);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = leader.Id }, leader);
+            return CreatedAtRoute("DefaultApi", new { id = building.Id }, building);
         }
 
-        // DELETE: api/Leaders/5
-        [ResponseType(typeof(Leader))]
-        public async Task<IHttpActionResult> DeleteLeader(int id)
+        // DELETE: api/Buildings/5
+        [ResponseType(typeof(Building))]
+        public async Task<IHttpActionResult> DeleteBuilding(int id)
         {
-            Leader leader = await db.Leaders.FindAsync(id);
-            if (leader == null)
+            Building building = await db.Buildings.FindAsync(id);
+            if (building == null)
             {
                 return NotFound();
             }
 
-            db.Leaders.Remove(leader);
+            db.Buildings.Remove(building);
             await db.SaveChangesAsync();
 
-            return Ok(leader);
+            return Ok(building);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +114,9 @@ namespace civilopedia.Controllers
             base.Dispose(disposing);
         }
 
-        private bool LeaderExists(int id)
+        private bool BuildingExists(int id)
         {
-            return db.Leaders.Count(e => e.Id == id) > 0;
+            return db.Buildings.Count(e => e.Id == id) > 0;
         }
     }
 }

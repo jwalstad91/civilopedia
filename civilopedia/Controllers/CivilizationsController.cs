@@ -17,15 +17,15 @@ namespace civilopedia.Controllers
     {
         private civilopediaContext db = new civilopediaContext();
 
-        // GET: api/Civilizations
-        public IQueryable<Civilization> GetCivilizations()
+        // GET: civ6/Civilizations/AllCivilizations
+        public IQueryable<Civilization> AllCivilizations()
         {
             return db.Civilizations;
         }
 
         // GET: api/Civilizations/5
         [ResponseType(typeof(Civilization))]
-        public async Task<IHttpActionResult> GetCivilization(int id)
+        public async Task<IHttpActionResult> GetCivilization(int? id)
         {
             Civilization civilization = await db.Civilizations.FindAsync(id);
             if (civilization == null)
@@ -45,7 +45,7 @@ namespace civilopedia.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != civilization.CivId)
+            if (id != civilization.Id)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace civilopedia.Controllers
             db.Civilizations.Add(civilization);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = civilization.CivId }, civilization);
+            return CreatedAtRoute("DefaultApi", new { id = civilization.Id }, civilization);
         }
 
         // DELETE: api/Civilizations/5
@@ -113,7 +113,7 @@ namespace civilopedia.Controllers
 
         private bool CivilizationExists(int id)
         {
-            return db.Civilizations.Count(e => e.CivId == id) > 0;
+            return db.Civilizations.Count(e => e.Id == id) > 0;
         }
     }
 }
