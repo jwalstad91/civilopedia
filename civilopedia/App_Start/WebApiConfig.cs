@@ -16,8 +16,38 @@ namespace civilopedia
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "civ6/{controller}/{id}",
+                routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Civilizations",
+                routeTemplate: "civ6/{controller}/{action}/{id}",
+                defaults: new { controller = "Civilizations", action = "AllCivilizations", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Leaders",
+                routeTemplate: "civ6/{controller}/{action}/{id}",
+                defaults: new { controller = "Leaders", action = "AllLeaders", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Buildings",
+                routeTemplate: "civ6/{controller}/{action}/{id}",
+                defaults: new { controller = "Buildings", action = "AllBuildings", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Districts",
+                routeTemplate: "civ6/{controller}/{action}/{id}",
+                defaults: new { controller = "Districts", action = "AllDistricts", id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Units",
+                routeTemplate: "civ6/{controller}/{action}/{id}",
+                defaults: new { controller = "Units", action = "AllUnits", id = RouteParameter.Optional }
             );
         }
     }
