@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -17,13 +10,15 @@ namespace civilopedia.Controllers
     {
         private civilopediaContext db = new civilopediaContext();
 
-        // GET: civ6/Leaders/AllLeaders
-        public IQueryable<Leader> AllLeaders()
+        // GET: civ6/Leaders
+        [HttpGet]
+        public IQueryable<Leader> GetAllLeaders()
         {
             return db.Leaders;
         }
 
-        // GET: api/Leaders/5
+        // GET: civ6/Leaders/5
+        [HttpGet]
         [ResponseType(typeof(Leader))]
         public async Task<IHttpActionResult> GetLeader(int id)
         {
@@ -36,42 +31,24 @@ namespace civilopedia.Controllers
             return Ok(leader);
         }
 
-        // PUT: api/Leaders/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutLeader(int id, Leader leader)
+        // GET: civ6/Leaders/Gandhi
+        [HttpGet]
+        [ResponseType(typeof(Leader))]
+        public IHttpActionResult GetLeader(string name)
         {
-            if (!ModelState.IsValid)
+            Leader leader = db.Leaders
+                              .Where(l => l.Name == name)
+                              .FirstOrDefault();
+            if (leader == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
 
-            if (id != leader.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(leader).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LeaderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(leader);
         }
 
-        // POST: api/Leaders
+        // POST: civ6/Leaders
+        [HttpPost]
         [ResponseType(typeof(Leader))]
         public async Task<IHttpActionResult> PostLeader(Leader leader)
         {
@@ -83,10 +60,11 @@ namespace civilopedia.Controllers
             db.Leaders.Add(leader);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = leader.Id }, leader);
+            return CreatedAtRoute("Leaders", new { id = leader.Id }, leader);
         }
 
         // DELETE: api/Leaders/5
+        [HttpDelete]
         [ResponseType(typeof(Leader))]
         public async Task<IHttpActionResult> DeleteLeader(int id)
         {
@@ -102,18 +80,9 @@ namespace civilopedia.Controllers
             return Ok(leader);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private bool LeaderExists(int id)
         {
-            return db.Leaders.Count(e => e.Id == id) > 0;
+            return db.Leaders.Count(l => l.Id == id) > 0;
         }
     }
 }

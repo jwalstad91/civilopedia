@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -17,18 +10,17 @@ namespace civilopedia.Controllers
     {
         private civilopediaContext db = new civilopediaContext();
 
-        // GET: api/Buildings
-        public IQueryable<Building> AllBuildings()
+        // GET: civ6/Buildings
+        [HttpGet]
+        public IQueryable<Building> GetAllBuildings()
         {
-            var result = from b in db.Buildings
-                         select b;
-
-            return result;
+            return db.Buildings;
         }
 
-        // GET: api/Buildings/5
+        // GET: civ6/Buildings/5
+        [HttpGet]
         [ResponseType(typeof(Building))]
-        public async Task<IHttpActionResult> GetBuilding(int? id)
+        public async Task<IHttpActionResult> GetBuilding(int id)
         {
             Building building = await db.Buildings.FindAsync(id);
             if (building == null)
@@ -39,42 +31,24 @@ namespace civilopedia.Controllers
             return Ok(building);
         }
 
-        // PUT: api/Buildings/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutBuilding(int id, Building building)
+        // GET: civ6/Buildings/{name}
+        [HttpGet]
+        [ResponseType(typeof(Building))]
+        public IHttpActionResult GetBuilding(string name)
         {
-            if (!ModelState.IsValid)
+            Building building = db.Buildings
+                                  .Where(b => b.Name == name)
+                                  .FirstOrDefault();
+            if (building == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
 
-            if (id != building.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(building).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BuildingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(building);
         }
 
-        // POST: api/Buildings
+        // POST: civ6/Buildings
+        [HttpPost]
         [ResponseType(typeof(Building))]
         public async Task<IHttpActionResult> PostBuilding(Building building)
         {
@@ -86,10 +60,11 @@ namespace civilopedia.Controllers
             db.Buildings.Add(building);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = building.Id }, building);
+            return CreatedAtRoute("Buildings", new { id = building.Id }, building);
         }
 
-        // DELETE: api/Buildings/5
+        // DELETE: civ6/Buildings/5
+        [HttpDelete]
         [ResponseType(typeof(Building))]
         public async Task<IHttpActionResult> DeleteBuilding(int id)
         {
@@ -105,18 +80,9 @@ namespace civilopedia.Controllers
             return Ok(building);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private bool BuildingExists(int id)
         {
-            return db.Buildings.Count(e => e.Id == id) > 0;
+            return db.Buildings.Count(b => b.Id == id) > 0;
         }
     }
 }

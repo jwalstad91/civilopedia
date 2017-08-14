@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -17,15 +10,17 @@ namespace civilopedia.Controllers
     {
         private civilopediaContext db = new civilopediaContext();
 
-        // GET: civ6/Civilizations/AllCivilizations
-        public IQueryable<Civilization> AllCivilizations()
+        // GET: civ6/Civilizations
+        [HttpGet]
+        public IQueryable<Civilization> GetAllCivilizations()
         {
             return db.Civilizations;
         }
 
-        // GET: api/Civilizations/5
+        // GET: civ6/Civilizations/5
+        [HttpGet]
         [ResponseType(typeof(Civilization))]
-        public async Task<IHttpActionResult> GetCivilization(int? id)
+        public async Task<IHttpActionResult> GetCivilization(int id)
         {
             Civilization civilization = await db.Civilizations.FindAsync(id);
             if (civilization == null)
@@ -36,42 +31,24 @@ namespace civilopedia.Controllers
             return Ok(civilization);
         }
 
-        // PUT: api/Civilizations/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutCivilization(int id, Civilization civilization)
+        // GET: civ6/Civilizations/{name}
+        [HttpGet]
+        [ResponseType(typeof(Civilization))]
+        public IHttpActionResult GetCivilization(string name)
         {
-            if (!ModelState.IsValid)
+            Civilization civilization = db.Civilizations
+                                          .Where(c => c.Name == name)
+                                          .FirstOrDefault();
+            if (civilization == null)
             {
-                return BadRequest(ModelState);
+                return NotFound();
             }
 
-            if (id != civilization.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(civilization).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CivilizationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(civilization);
         }
 
-        // POST: api/Civilizations
+        // POST: civ6/Civilizations
+        [HttpPost]
         [ResponseType(typeof(Civilization))]
         public async Task<IHttpActionResult> PostCivilization(Civilization civilization)
         {
@@ -83,10 +60,11 @@ namespace civilopedia.Controllers
             db.Civilizations.Add(civilization);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = civilization.Id }, civilization);
+            return CreatedAtRoute("Civilizations", new { id = civilization.Id }, civilization);
         }
 
         // DELETE: api/Civilizations/5
+        [HttpDelete]
         [ResponseType(typeof(Civilization))]
         public async Task<IHttpActionResult> DeleteCivilization(int id)
         {
@@ -102,18 +80,9 @@ namespace civilopedia.Controllers
             return Ok(civilization);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         private bool CivilizationExists(int id)
         {
-            return db.Civilizations.Count(e => e.Id == id) > 0;
+            return db.Civilizations.Count(c => c.Id == id) > 0;
         }
     }
 }
